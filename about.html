@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Travel Destination Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Travel Guide</div>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="about-page">
+        <section class="about-hero">
+            <h1>Why Travel?</h1>
+            <p>Discover the world, enrich your life, and create unforgettable memories</p>
+        </section>
+
+        <section class="benefits">
+            <h2>Benefits of Travel</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Personal Growth</h3>
+                    <p>Travel challenges you to step out of your comfort zone and develop new skills.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Cultural Understanding</h3>
+                    <p>Experience different cultures and gain a broader perspective on life.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Memories & Stories</h3>
+                    <p>Create lasting memories and stories to share with friends and family.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="safety-tips">
+            <h2>Travel Safety Tips</h2>
+            <div class="tips-container">
+                <div class="tip">
+                    <h3>Before You Go</h3>
+                    <ul>
+                        <li>Research your destination thoroughly</li>
+                        <li>Check travel advisories</li>
+                        <li>Get necessary vaccinations</li>
+                        <li>Purchase travel insurance</li>
+                        <li>Make copies of important documents</li>
+                    </ul>
+                </div>
+                <div class="tip">
+                    <h3>During Your Trip</h3>
+                    <ul>
+                        <li>Stay aware of your surroundings</li>
+                        <li>Keep valuables secure</li>
+                        <li>Use reliable transportation</li>
+                        <li>Stay connected with loved ones</li>
+                        <li>Follow local customs and laws</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="travel-tips">
+            <h2>Essential Travel Tips</h2>
+            <div class="tips-grid">
+                <div class="travel-tip-card">
+                    <h3>Packing Smart</h3>
+                    <p>Pack light and bring versatile clothing items that can be mixed and matched.</p>
+                </div>
+                <div class="travel-tip-card">
+                    <h3>Budget Planning</h3>
+                    <p>Set a realistic budget and track your expenses during your trip.</p>
+                </div>
+                <div class="travel-tip-card">
+                    <h3>Local Transportation</h3>
+                    <p>Research local transportation options before arriving at your destination.</p>
+                </div>
+                <div class="travel-tip-card">
+                    <h3>Cultural Etiquette</h3>
+                    <p>Learn basic phrases and cultural norms of your destination.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Travel Guide</h4>
+                <p>Your trusted companion for unforgettable journeys.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Travel Guide. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html> 

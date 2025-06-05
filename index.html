@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Destination Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Travel Guide</div>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Discover Amazing Destinations</h1>
+        <p>Your journey to unforgettable experiences starts here</p>
+    </header>
+
+    <main>
+        <section class="featured-destinations">
+            <h2>Popular Destinations</h2>
+            <div class="destination-grid">
+                <div class="destination-card">
+                    <img src="https://source.unsplash.com/800x600/?paris" alt="Paris">
+                    <h3>Paris, France</h3>
+                    <p>The City of Light awaits with its iconic Eiffel Tower and charming streets.</p>
+                </div>
+                <div class="destination-card">
+                    <img src="https://source.unsplash.com/800x600/?tokyo" alt="Tokyo">
+                    <h3>Tokyo, Japan</h3>
+                    <p>Experience the perfect blend of traditional culture and modern innovation.</p>
+                </div>
+                <div class="destination-card">
+                    <img src="https://source.unsplash.com/800x600/?bali" alt="Bali">
+                    <h3>Bali, Indonesia</h3>
+                    <p>Discover paradise with stunning beaches and rich cultural heritage.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h2>Explore Destinations</h2>
+            <div id="map"></div>
+        </section>
+
+        <section class="cultural-facts">
+            <h2>Cultural Insights</h2>
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <h3>Local Customs</h3>
+                    <p>Learn about unique traditions and customs from around the world.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Traditional Cuisine</h3>
+                    <p>Discover authentic flavors and culinary experiences.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Festivals & Events</h3>
+                    <p>Plan your visit around exciting cultural celebrations.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Travel Guide</h4>
+                <p>Your trusted companion for unforgettable journeys.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Travel Guide. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add some markers for popular destinations
+        const destinations = [
+            { name: 'Paris', coords: [48.8566, 2.3522] },
+            { name: 'Tokyo', coords: [35.6762, 139.6503] },
+            { name: 'Bali', coords: [-8.3405, 115.0920] }
+        ];
+
+        destinations.forEach(dest => {
+            L.marker(dest.coords)
+                .bindPopup(dest.name)
+                .addTo(map);
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html> 
